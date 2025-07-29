@@ -1,8 +1,6 @@
 # Developer Guide: SpEL Rule Editor and Rule Set Builder (React + Monaco + DnD)
 
-This guide walks you through setting up and ## 7. Sample Data Structure
-
-For SpEL validation and testing, you can reference common data structures that rules might evaluate against. The specific structure will be provided based on your use case requirements.odebase for building a **SpEL Rule Editor** and **Rule Set Composer UI**, which allows users to:
+This guide walks you through setting up a codebase for building a **SpEL Rule Editor** and **Rule Set Composer UI**, which allows users to:
 
 - Create/edit/delete individual rules written in **Spring Expression Language (SpEL)**
 - Validate SpEL expressions using the `spel2js` library (optional: backend validation)
@@ -51,8 +49,16 @@ npm install @monaco-editor/react spel2js react-dnd react-dnd-html5-backend @mui/
 
 - Monaco Editor for rich editing of `condition`
 - Input fields for `name`, `description`, `errorCode`, `ruleType`
-- SpEL validation (currently mocked; optionally call backend or use `spel2js`)
+- **Frontend SpEL syntax validation** (real-time, prevents saving invalid syntax)
+- **Optional backend validation** (manual trigger, comprehensive execution testing)
+- Backend validation results don't block saving (optional verification)
 - Save appends rule to local rule list
+
+**Validation Approach:**
+
+- **Frontend Validation**: Real-time syntax checking using SpEL parser, validates grammar and structure
+- **Backend Validation**: Optional button to test actual execution against real application context
+- **Save Behavior**: Only requires valid syntax (frontend), backend validation is informational only
 
 **Customizable:**
 
@@ -1248,31 +1254,9 @@ export SPEL_CONTEXT_ENABLED=false
 
 ---
 
-## 7. Sample Transaction Structure
+## 7. SpEL Editor User Experience Enhancements
 
-The SpEL conditions refer to objects like `['transaction'].currency`. Here’s a reference:
-
-```js
-const transactions = {
-  header: { status: "Success" },
-  body: [
-    {
-      serviceType: "TT MBB Currency",
-      payload: '{"currencyCode":"USD","ouCountry":"LBN"}',
-      status: "PENDING",
-      actionType: "UPDATE",
-    },
-  ],
-};
-```
-
-Ensure the condition syntax matches this structure.
-
----
-
-## 8. SpEL Editor User Experience Enhancements
-
-### 8.1. Smart Auto-Completion
+### 7.1. Smart Auto-Completion
 
 Implement intelligent auto-completion in Monaco Editor for SpEL expressions:
 
@@ -1333,7 +1317,7 @@ monaco.languages.registerCompletionItemProvider(
 );
 ```
 
-### 8.2. Real-Time Expression Preview
+### 7.2. Real-Time Expression Preview
 
 Show live evaluation results as users type:
 
@@ -1379,7 +1363,7 @@ const SpelPreview = ({ expression, context }) => {
 };
 ```
 
-### 8.3. Expression Templates & Snippets
+### 7.3. Expression Templates & Snippets
 
 Provide common expression templates:
 
@@ -1429,7 +1413,7 @@ const TemplateSelector = ({ onSelectTemplate }) => (
 );
 ```
 
-### 8.4. Visual Expression Builder
+### 7.4. Visual Expression Builder
 
 Drag-and-drop visual builder for non-technical users:
 
@@ -1516,7 +1500,7 @@ const VisualExpressionBuilder = () => {
 };
 ```
 
-### 8.5. Interactive Documentation Panel
+### 7.5. Interactive Documentation Panel
 
 Context-aware help panel:
 
@@ -1546,13 +1530,6 @@ const SpelDocumentation = ({ currentExpression }) => {
         example: "description.contains('urgent')",
       },
     ],
-    objects: [
-      {
-        name: "transaction",
-        properties: ["amount", "currency", "type", "status"],
-      },
-      { name: "user", properties: ["id", "role", "permissions", "department"] },
-    ],
   };
 
   return (
@@ -1560,7 +1537,6 @@ const SpelDocumentation = ({ currentExpression }) => {
       <Tabs value={selectedTopic} onChange={(e, v) => setSelectedTopic(v)}>
         <Tab label="Operators" value="operators" />
         <Tab label="Functions" value="functions" />
-        <Tab label="Objects" value="objects" />
       </Tabs>
 
       <Box sx={{ mt: 2 }}>
@@ -1588,7 +1564,7 @@ const SpelDocumentation = ({ currentExpression }) => {
 };
 ```
 
-### 8.6. Expression Validation with Suggestions
+### 7.6. Expression Validation with Suggestions
 
 Enhanced validation with smart suggestions:
 
@@ -1636,7 +1612,7 @@ const generateSmartSuggestions = (expression, error) => {
 };
 ```
 
-### 8.7. Expression Testing Playground
+### 7.7. Expression Testing Playground
 
 Interactive testing environment:
 
@@ -1700,7 +1676,7 @@ const SpelPlayground = () => {
 };
 ```
 
-### 8.8. Expression History & Favorites
+### 7.8. Expression History & Favorites
 
 Save and reuse expressions:
 
@@ -1745,7 +1721,7 @@ const ExpressionHistory = () => {
 };
 ```
 
-### 8.9. Syntax Highlighting for SpEL
+### 7.9. Syntax Highlighting for SpEL
 
 Custom Monaco theme for SpEL:
 
@@ -1781,7 +1757,7 @@ monaco.languages.setMonarchTokensProvider("spel", {
 
 ---
 
-## 9. Best Practices
+## 8. Best Practices
 
 - Validate expressions using `spel2js` **before saving**
 - Implement undo or preview functionality for rules

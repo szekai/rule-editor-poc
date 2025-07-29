@@ -22,6 +22,7 @@ import {
 import RuleSetEditor from "./RuleSetEditor";
 import SpelRuleEditor from "./SpelRuleEditor";
 import MakerCheckerTable from "./MakerCheckerTable";
+import ValidationDebugger from "./ValidationDebugger";
 
 // Create theme
 const theme = createTheme({
@@ -122,6 +123,11 @@ function App() {
                   iconPosition="start"
                   sx={{ minHeight: 60 }}
                 />
+                <Tab
+                  label="Debug Validation"
+                  iconPosition="start"
+                  sx={{ minHeight: 60 }}
+                />
               </Tabs>
 
               {/* Tab Content */}
@@ -135,6 +141,10 @@ function App() {
 
               <TabPanel value={tabValue} index={2}>
                 <MakerCheckerTable />
+              </TabPanel>
+
+              <TabPanel value={tabValue} index={3}>
+                <ValidationDebugger />
               </TabPanel>
             </Paper>
           </Container>

@@ -271,71 +271,12 @@ export const mockApi = {
     return { success: true };
   },
 
-  // SpEL Validation
-  async validateSpel(expression) {
-    await delay(200);
-    try {
-      // Frontend validation using spel2js
-      SpelExpressionEvaluator.compile(expression);
-
-      // Mock backend-style validation (more comprehensive)
-      const mockValidationResult = {
-        valid: true,
-        syntaxValid: true,
-        semanticValid: true,
-        warnings: [],
-        suggestions: [],
-      };
-
-      // Add some mock semantic validation
-      if (expression.includes("transaction.") || expression.includes("user.")) {
-        mockValidationResult.semanticValid = true;
-      } else if (expression.trim() === "") {
-        throw new Error("Expression cannot be empty");
-      } else {
-        mockValidationResult.warnings.push(
-          "Expression may reference unknown objects"
-        );
-      }
-
-      return mockValidationResult;
-    } catch (error) {
-      return {
-        valid: false,
-        syntaxValid: false,
-        semanticValid: false,
-        error: error.message,
-        warnings: [],
-        suggestions: ["Check SpEL syntax", "Ensure proper object references"],
-      };
-    }
-  },
+  // NOTE: SpEL validation has been moved to spelValidationService.js
+  // to maintain single source of truth and avoid conflicts
 };
 
-// SpEL validation utility
-export const validateSpelExpression = async (expression) => {
-  if (!expression || expression.trim() === "") {
-    return {
-      valid: false,
-      error: "Expression is required",
-      suggestions: [],
-    };
-  }
-
-  try {
-    // Client-side syntax validation
-    SpelExpressionEvaluator.compile(expression);
-
-    // Mock API call for comprehensive validation
-    return await mockApi.validateSpel(expression);
-  } catch (error) {
-    return {
-      valid: false,
-      error: error.message,
-      suggestions: ["Check SpEL syntax", "Verify object properties exist"],
-    };
-  }
-};
+// NOTE: SpEL validation has been moved to spelValidationService.js
+// Use spelValidationService.validateSpelSyntax() instead of this function
 
 // Sample data structure for SpEL context
 export const sampleDataStructure = {
