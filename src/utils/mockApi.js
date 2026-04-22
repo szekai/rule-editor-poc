@@ -16,7 +16,7 @@ let rulesStorage = [
     id: "CurrencyCheck",
     name: "Currency Check",
     description: "Validate supported currencies",
-    condition: "transaction.currency in {'USD', 'EUR', 'GBP'}",
+    condition: "{'USD', 'EUR', 'GBP'}.contains(transaction.currency)",
     ruleType: "validation",
     errorCode: "ERR_INVALID_CURRENCY",
     createdAt: new Date().toISOString(),

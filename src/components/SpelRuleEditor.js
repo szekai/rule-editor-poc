@@ -411,7 +411,6 @@ export default function SpelRuleEditor() {
                 >
                   <MenuItem value="validation">Validation</MenuItem>
                   <MenuItem value="execution">Execution</MenuItem>
-                  <MenuItem value="filter">Filter</MenuItem>
                 </Select>
               </FormControl>
             </Box>

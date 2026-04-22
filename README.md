@@ -2,6 +2,20 @@
 
 A comprehensive React-based application for creating, editing, and managing Spring Expression Language (SpEL) rules with visual rule set composition capabilities.
 
+## 📚 Documentation
+
+For comprehensive documentation, see the [User Guide](docs/README.md).
+
+### Quick Links
+
+- [Getting Started](docs/getting-started/installation.md)
+- [Your First Rule](docs/tutorials/first-rule.md)
+- [Building a Rule Set](docs/tutorials/building-ruleset.md)
+- [Configuration](docs/configuration/environment-variables.md)
+- [Troubleshooting](docs/troubleshooting/common-errors.md)
+
+---
+
 ## 🚀 Features
 
 ### SpEL Rule Editor
@@ -9,7 +23,7 @@ A comprehensive React-based application for creating, editing, and managing Spri
 - **Monaco Editor Integration**: Rich code editing experience for SpEL expressions
 - **Real-time Validation**: Syntax and semantic validation using `spel2js`
 - **CRUD Operations**: Create, read, update, and delete rules with in-memory storage
-- **Rule Types**: Support for validation, execution, and filter rule types
+- **Rule Types**: Support for validation and execution rule types
 - **Error Handling**: Comprehensive error feedback and suggestions
 
 ### Rule Set Composer
